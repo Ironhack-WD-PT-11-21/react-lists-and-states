@@ -7,6 +7,9 @@ const MovieCardDeletable = (props) => {
             by {props.movie.director}
         </p>
         <p>
+            Rating: {props.movie.IMDbRating}
+        </p>
+        <p>
             {
                 props.movie.hasOscars ? 'Got the Oscar Award!' : 'Great movie but no Oscars!'
             }

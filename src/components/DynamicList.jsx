@@ -1,5 +1,6 @@
 import React from 'react';
-import MovieCardDeletable from './MovieCardDeletable'
+import MovieCardDeletable from './MovieCardDeletable';
+import AddMovieForm from './AddMovieForm';
 
 class DynamicList extends React.Component {
     constructor() {
@@ -24,18 +25,26 @@ class DynamicList extends React.Component {
         });
     }
 
-    handleFilter = () => {
+    // handleFilter = () => {
+    //     this.setState({
+    //         ...this.state,
+    //         showOscars: !this.state.showOscars
+    //     });
+    // }
+
+    addMovieToList = (movie) => {
+        const updatedList = [...this.state.listOfMovies, movie];
         this.setState({
             ...this.state,
-            showOscars: !this.state.showOscars
+            listOfMovies: updatedList
         });
     }
 
     render() {
         const movieCardList = this.state.listOfMovies
-            .filter((movie) => {
-                return movie.hasOscars === this.state.showOscars
-            })
+            // .filter((movie) => {
+            //     return movie.hasOscars === this.state.showOscars
+            // })
             .map((movie) => {
                 return <MovieCardDeletable
                     key={movie.id}
@@ -43,15 +52,18 @@ class DynamicList extends React.Component {
                     deleteMovie={this.handleDeleteMovie}
                 />
             })
-        return (
+        return (<>
             <div>
-                <button onClick={this.handleFilter}>
+                {/* <button onClick={this.handleFilter}>
                     {
                         this.state.showOscars ? "Show me the other ones" : "Show me Oscar winners !"
                     }
-                </button>
+                </button> */}
+
                 {movieCardList}
             </div>
+            <AddMovieForm addMovieToList={this.addMovieToList} />
+        </>
         )
     }
 
